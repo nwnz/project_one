@@ -2,18 +2,18 @@
         
 use DBI;
         
-my $host = "172.19.0.2"; # MySQL-сервер нашего хостинга
+my $host = "test-mysql"; # MySQL-сервер нашего хостинга
 #my $host = "127.0.0.1";
 my $port = "3306"; # порт, на который открываем соединение
 my $user = "root"; # имя пользователя
-my $pass = "testtest"; # пароль
-my $db = "car_test"; # имя базы данных 
+my $pass = "root"; # пароль
+my $db = "test"; # имя базы данных 
 print "Content-type: text/plain\n\n";
 #    print "Content-type: text/plain\n\n";
 #print "Hello World In CGI Perl";
 
 $dbh = DBI->connect("DBI:mysql:$db:$host:$port",$user,$pass);
-$sth = $dbh->prepare("SELECT * FROM car_test.new_table"); # готовим запрос
+$sth = $dbh->prepare("SELECT * FROM user_details"); # готовим запрос
 $sth->execute; # исполняем запрос
 
 while ($ref = $sth->fetchrow_arrayref) {
