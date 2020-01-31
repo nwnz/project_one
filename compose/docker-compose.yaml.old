@@ -1,0 +1,35 @@
+version: '3'
+services:
+    web:
+        container_name: ngnix_one
+        build:
+            context: .
+            dockerfile: ngnix.Dockerfile
+        volumes:
+            - ./../html:/var/www
+            - ./../log/web:/var/log/nginx/web
+        ports:
+            - "8080:80"
+    db:
+        image: mysql:8.0
+#        build:
+#            context: .
+#            dockerfile: mysql.Dockerfile
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        container_name: mysql_one
+#        command: sh -c db_dump/1.sh
+#        copy:
+#            - ./mysql.sql:/
+        volumes:
+#          - ./../db_files:/var/lib/mysql
+          - /home/user/dev/project_one/db_dump/my_mysql.sql:/docker-entrypoint-initdb.d/my_mysql.sql
+        environment:
+#          - MYSQL_USER=root
+#          - MYSQL_PASSWORD=testtest
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=my_mysql
+          
+        ports:
+          - '3306'
+    
